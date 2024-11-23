@@ -37,7 +37,7 @@ class CircQ{
         if(front == rear){
             front = rear = -1;
         }else{
-            front = (front+1)*MAX;
+            front = (front+1)%MAX;
         }
         count --;
         return value;

@@ -1,0 +1,389 @@
+DATA STRUCTURES NOTES:
+
+Basic code syntax in cpp:
+
+#include<iostream>
+using namespace std;
+class ABC{
+int <var_1>;
+char foo[100];
+public:
+int <function_name>{
+
+};
+};
+
+int main(){
+ABC abc;
+//abc is an instance of the class ABC. It can utilize all functions of ABC.
+}
+
+
+
+TOWER OF HANOI:
+
+Basic algorithm:
+You have 3 disks (say A, B and C), to move n disks from A to C while using B as a auxilliary.
+We first move (n-1) disks from A to B, using C as the auxilliary disk.
+Then, we move the nth disk from A to C.
+Move (n-1) disks from B to A using C as auxilliary. Move the nth disk in B to C.
+Repeat and rinse till you have everything sorted.
+
+PSEUDOCODE:
+int TOH(int n, char source, char aux, char dest){
+	if(n==1){
+	   cout << "Move disk from " << source << " to " << dest << endl;
+	TOH(n-1, A, C, B)
+	cout << "Move disk " << n << " from  " << source << " to "<< dest <<endl;
+	TOH(n-1, B, A, C)
+}
+
+
+1) Stacks:-
+Follows a LIFO approach
+Implemented using arrays in c++
+
+#include<iostream>
+#define MAX 100
+using namespace std;
+
+class Stack{
+   int arr[MAX]; //Initializing an array in c++
+   int top;
+public:
+   Stack(){
+    top = -1;
+    }
+    bool isEmpty(){
+     return top == -1;
+    }
+    bool isFull(){
+      return top == MAX-1;
+     }
+     void push(int n){
+      if(isFull()){
+	return -1;
+	}
+	arr[++top] = n;
+       }
+      int pop()
+        if(isEmpty()){
+          return -1;
+         }
+         return arr[top--];
+       int peek(){
+         if(isEmpty()){
+           return -1;
+          }
+          return arr[top];
+        }
+};
+
+INFIX, POSTFIX AND PREFIX:
+
+All 3 are math expressions. Infix has symbols within the operands, postfix has the symbols after the operands and prefix has them before the operands.
+
+Infix to postfix --> Standard algorithm:
+Keep adding all operands to a string and move from left to right. When encountering an operator push it into a stack. 
+If you encounter an "(", keep adding all the operators after it to the stack. After encountering the ")", pop back all the operators to the string until you encounter the "(".
+Do NOT add back the brackets.
+
+Infix to prefix --> Standard algorithm:
+Reverse the infix expression, perform postfix on it, reverse it again.
+
+Code for operator precedence, infix to postfix and infix to prefix:
+
+
+QUEUES:
+FIFO approach implemented using arrays
+
+Normal queue:
+set front = rear = -1;
+Enqueue: check if rear=maxsize-1, if not return arr[front++]
+Dequeue: set int value = arr[front]. check if front = rear, if yes, reset everything to front = rear = -1. if front=-1, error
+return arr[front]
+
+Circular queue:
+Rear pointer can wrap around to the front of the queue.
+In a circular queue, data is not actually removed. We just return the value and then increment the head pointer.
+Queue is ONLY between head and rear pointer.
+
+Formula to increment head and tail pointers to keep it within maxSize is:
+head = (head+1)%maxSize
+tail = (tail+1)%maxSize
+
+To find the size of the queue:
+if tail>=head, size = (tail-head)+1
+if head>tail, size = maxSize - (head-tail)+1 (We are checking for the number of elements between head and tail and then subtracting it from maxsize)
+
+Uses of circular queue:
+CPU scheduling
+Memory management
+Computer controlled traffic system
+
+
+LINKED LISTS:
+Make sure struct is initialized properly. Do not forget to do Node* head;
+For doubly linked list, make sure that temp->next->prev = temp->prev
+temp->prev->next = temp->next and THEN delete.
+
+For circular linked lists be careful while inserting element at head.
+
+TREES:
+
+Trees are used for representing hierarchical data
+Allows me to establish a parent-child relationship between data
+
+Binary search trees helps us to order elements in such a way that the searching takes far lesser time
+
+Tree consists of:
+Nodes and branches (Branches are the lines which connect the nodes)
+
+Degree of a node is the number of branches associated with it
+
+Linked list is a linear data structure so its a bit fuckall
+
+Branch directed towards the node = indegree
+Branch directed outwards from the node = outdegree
+indegree+outdegree = overall degree
+
+If a tree is not empty, first node is called root
+
+Indegree of a root is 0. Which means that all nodes originate from the root.
+
+Other than the root, all nodes in a tree can ONLY have indegree of 1.
+
+Outdegree can be >=1
+
+DIRECTED TREE:
+Is a tree w/ only one node which has indegree 0. Rest everything has an indegree of 1.
+Node w/ indegree 0 is the root (obviously)
+
+Descendant of a node: All the nodes which are reachable from a particular node are its descendants (outdegree reaching in essence)
+
+Ancestors are ulta descendants
+
+Children: Reached from a single edge of a node. Father is the parent of children
+
+Left subtree: All left descendants from a node form the left subtree
+Right subtree: All right descendants from a node form the right subtree
+
+All nodes w/ outdegree 0 are called terminal/leaf nodes.
+
+Level:
+Number of edges in the path from root to a particular node is called level.
+
+Height: max(level)+1
+
+Binary trees:
+Directed tree in which outdegree of each node is {0,1,2}.
+
+Strict Binary tree:
+Binary w/ only 0 or 2 children.
+
+SBT w/ n leaves has 2n-1 children
+
+Complete binary tree:
+Number of nodes at any level I = 2^i
+So think of a pyramid
+
+Almost complete binary tree:
+All levels are complete except lowest. There are empty spaces in the right subtree.
+
+Balance factor:
+B = Height(left subtree) - Height(right subtree)
+
+In a balanced binary tree, left subtree ka height = right subtree ka height
+
+AVL tree: Balance factor is 0, 1 or -1.
+
+Given a position 'i' of a node:
+(2i+1) gives me pos of left child
+(2i+2) gives me pos of right child
+(i-1)/2 gives me position of father
+
+Deletion in a binary tree:
+If has 2 subtrees, do in-order and replace w/ predecessor or successor
+
+
+Threaded binary trees:
+Waste of space due to null pointers
+Replace them w/ pointing to in-order successor or predecessor if any
+TRAVERSAL:
+
+There are 2 types of traversals in a binary tree.
+
+1) Depth-first:
+We use a stack.
+a) Add root to the stack
+b) Pop an element, process it and add its right and left children to the stack.
+c) Repeat till stack is empty
+
+3 main depth-first traversals in DFS:
+Pre-order:
+Root Left Right
+In-order:
+Left Root Right
+Post-order:
+Left Right root
+
+In-order+Pre/Post:- Really simple. Find root from pre/post. look for left and right subtrees in in-order and solve
+
+Pre+post:- Fuck my life idk yet
+
+2) Breadth-first:
+We use a queue
+a) Add root to queue
+b) Pop an element, process its children and add its right and left children to the queue
+c) Rinse and repeat till done
+
+Level first searching, search level by level
+
+MULTIWAY TREE:
+More than one child per node
+Order of tree: Max number of children per tree
+
+Types of multiway trees:
+It is a balanced tree. Hence height of left tree = height of right tree
+
+B- trees:
+All nodes have to be at the same level
+
+B- tree of order m has the following properties:
+Every node has max of m children
+
+For root, min number of children is 2
+And for internals nodes min number of children is ceil(m/2)
+
+Keys are the data you store in a node. 
+Max number of keys for a m-way tree is (m-1)
+Min number of keys for a m-way tree is 2(ceil(m/2)-1)
+
+INSERTION IN A B- TREE:
+Pretty simple, every node can have m-1 keys.
+If we're trying to insert a new key, the middle one will be promoted.
+Since it is always sorted and each node can have a max of m children, we can aaram se insert and pleg the value
+
+Deletion:
+Fuck my life this shit is so hard
+Root node can contain 1 key
+If you need to remove a key from a leaf node, you can do it directly.
+If a node is experiencing underflow,
+It can borrow key from the sibling, process is as follows:
+
+For left-node
+Max value of sibling will be promoted and then the promoted key will be demoted down to the node. We can then delete our key.
+
+For right-node:
+min value of sibling node will be promoted and then the max of the parent node will be demoted
+
+
+If we can't borrow, we merge.
+We take a parent from in between the values and then demote it. Once demoted and merged, we delete the key.
+
+Whenever a parent is demoted, we MERGE the nodes below, no matter what.
+
+Ultimately you need to see if there is an underflow or overflow.
+If underflow, merge.
+If overflow, promote the MIDDLE key
+If internal key deletion, consider promotion.
+
+
+B+ tree:
+Max children = 4
+Max keys = 3
+min children = ceil(m/2)
+min key = ceil(m/2)-1
+
+Data is only stored in leaf node in B+ trees. ALL DATA needs to be in leaf node.
+Hence, when you're promoting make sure that there is a copy in the leaf
+
+HEAPS:-
+It is a complete or nearly complete binary tree.
+
+If a node A has a child node B:-
+
+in max heap - key(A)>=key(B)
+in min heap - key(A)<=key(B)
+
+Heapify - Convert binary tree to a heap data structure
+Reheapup - Push key value up
+Reheapdown - Root is removed and then heap is re-established by pulling up the greatest value.
+
+For heap-sort:
+Just make a tree out of your array. Level first traversal
+Max-heap this tree. Swap largest element w/ smallest and make the smallest the root.
+Call heap-sort again and redo until done.
+
+Depth-first traversal of a graph:
+Start from any vertex
+Pop, push its neighbours
+
+Breadth-first search:
+Start from any vertex. Enqueue that
+Dequeue it and then enqueue its neighbours.
+
+Adjacacency matrix:
+Assume n vertices
+Make a nxn matrix.
+Wherever there is a 1, an edge exists there.
+
+If there is a directed graph, make sure that the directed edge only is present. We do not want repeated edges.
+
+Incidence matrix:
+If edge leaves, we mark with -1
+If edge enters, we mark with +1
+
+
+
+Kruskal's algorithm:
+Find smallest edge
+Find smallest edge which doesn't create a cycle
+A tree needs to connect all vertices, so choose the edges wisely
+
+Prim's algorithm:
+Create an array with all visited nodes
+pick any arbitrary node
+Examine all vertices reachable from A. Choose the smallest edge which connects to an unvisited node.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
