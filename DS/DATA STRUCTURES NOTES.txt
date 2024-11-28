@@ -84,14 +84,13 @@ INFIX, POSTFIX AND PREFIX:
 All 3 are math expressions. Infix has symbols within the operands, postfix has the symbols after the operands and prefix has them before the operands.
 
 Infix to postfix --> Standard algorithm:
-Keep adding all operands to a string and move from left to right. When encountering an operator push it into a stack. 
+Keep adding all operands to a string and move from left to right while evaluating. When encountering an operator push it into a stack. 
 If you encounter an "(", keep adding all the operators after it to the stack. After encountering the ")", pop back all the operators to the string until you encounter the "(".
 Do NOT add back the brackets.
 
 Infix to prefix --> Standard algorithm:
 Reverse the infix expression, perform postfix on it, reverse it again.
 
-Code for operator precedence, infix to postfix and infix to prefix:
 
 
 QUEUES:
@@ -119,11 +118,12 @@ if head>tail, size = maxSize - (head-tail)+1 (We are checking for the number of 
 Uses of circular queue:
 CPU scheduling
 Memory management
-Computer controlled traffic system
+Computer controlled traffic systems (how?)
 
 
 LINKED LISTS:
 Make sure struct is initialized properly. Do not forget to do Node* head;
+
 For doubly linked list, make sure that temp->next->prev = temp->prev
 temp->prev->next = temp->next and THEN delete.
 
